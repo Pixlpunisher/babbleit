@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
-
 import { apiRemoveCommunity } from '../../../api'
 import { MaxWidthContainer } from '../../../components'
 import Button from '../../../components/Button'
@@ -24,9 +23,7 @@ export default function CommunityPage({
   communityAdminRole
 }: CommunityProps) {
   const router = useRouter()
-
   const { state } = useContext(GlobalContext)
-
   const [showAddMembers, setShowAddMembers] = useState(false)
   const [showModerators, setShowModerators] = useState(false)
 
@@ -56,7 +53,7 @@ export default function CommunityPage({
       </Title>
       <ButtonWrapper>
         <MemberButtonsWrapper>
-          <Button onClick={() => router.push(`${router.query.slug}/new-post`)}>
+          <Button onClick={() => router.push(`/${router.query.slug}/new-post`)}>
             Add new post
           </Button>
           <Button onClick={() => setShowModerators(true)}>
@@ -68,13 +65,13 @@ export default function CommunityPage({
           {communityAdminRole && (
             <Button onClick={() => setShowAddMembers(true)}>Add member</Button>
           )}
-          {communityAdminRole === 'admin' && (
+          {communityAdminRole == 'admin' && (
             <Button onClick={() => router.push(`${router.query.slug}/edit`)}>
               Edit info
             </Button>
           )}
         </MemberButtonsWrapper>
-        {(communityAdminRole === 'admin' || state.user.isAdmin) && (
+        {(communityAdminRole === 'admin' || state.user?.isAdmin) && (
           <Button danger onClick={removeCommunity}>
             Delete community
           </Button>
