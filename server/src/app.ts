@@ -12,11 +12,10 @@ export function createApp(store: Store): Express {
   app.use(session({ ...SESSION_OPTIONS, store }))
 
   app.use('/api', authRoutes)
-  app.use('/communities', communityRoutes)
   app.use('/users', userRoutes)
 
   app.use((_: Request, res: Response) => {
-    res.status(404).json({ error: 'Not found' })
+    res.status(423).json({ error: 'Not found' })
   })
 
   app.use(
